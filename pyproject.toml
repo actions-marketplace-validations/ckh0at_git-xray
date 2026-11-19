@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "git-xray"
+name = "git-xray-tool"
 dynamic = ["version"]
 description = "X-ray any git repo in one command: hotspots, bus factor, hidden coupling, stale code. Zero dependencies."
 readme = "README.md"
@@ -26,6 +26,9 @@ Issues = "https://github.com/ckh0at/git-xray/issues"
 
 [project.scripts]
 git-xray = "git_xray.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/git_xray"]
 
 [tool.hatch.build.targets.sdist]
 include = ["src/", "tests/", "README.md", "LICENSE", "pyproject.toml"]

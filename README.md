@@ -5,9 +5,8 @@
 **X-ray any git repository in one command.**
 Find the code that hurts: hotspots, bus factor, hidden coupling, stale and orphaned files.
 
-[![PyPI](https://img.shields.io/pypi/v/git-xray.svg)](https://pypi.org/project/git-xray/)
-[![Python](https://img.shields.io/pypi/pyversions/git-xray.svg)](https://pypi.org/project/git-xray/)
-[![CI](https://github.com/ckh0at/git-xray/actions/workflows/ci.yml/badge.svg)](https://github.com/ckh0at/git-xray/actions/workflows/ci.yml)
+[![PyPI](https://img.shields.io/pypi/v/git-xray-tool.svg)](https://pypi.org/project/git-xray-tool/)
+[![Python](https://img.shields.io/pypi/pyversions/git-xray-tool.svg)](https://pypi.org/project/git-xray-tool/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 <img src="https://raw.githubusercontent.com/ckh0at/git-xray/main/docs/demo.svg" alt="git-xray running on the Flask repository" width="820">
@@ -15,12 +14,14 @@ Find the code that hurts: hotspots, bus factor, hidden coupling, stale and orpha
 </div>
 
 ```bash
-pipx install git-xray     # or: pip install git-xray / uvx git-xray
+pipx install git-xray-tool     # or: pip install git-xray-tool
+                               # one-off run: uvx --from git-xray-tool git-xray
 cd your-repo
 git xray
 ```
 
-No config, no server, no dependencies. Pure Python and `git`. It analyses Flask's
+The package is called `git-xray-tool` on PyPI; the command is `git-xray`, or just
+`git xray`. No config, no server, no dependencies. Pure Python and `git`. It analyses Flask's
 3,800 commits in **under a second**.
 
 ---
