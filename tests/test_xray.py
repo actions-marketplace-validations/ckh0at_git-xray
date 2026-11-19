@@ -261,3 +261,8 @@ def test_icon_modes_render(repo):
     # Same column layout in every mode
     emoji_lines = render_terminal(r, color=False, width=100, now=repo.t).splitlines()
     assert len(emoji_lines) == len(ascii_out.splitlines())
+
+
+def test_missing_directory_has_clear_error(tmp_path, capsys):
+    assert main(["-C", str(tmp_path / "does-not-exist")]) == 2
+    assert "no such directory" in capsys.readouterr().err

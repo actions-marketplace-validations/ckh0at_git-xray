@@ -43,6 +43,8 @@ class GitError(RuntimeError):
 
 
 def run_git(args: list[str], cwd: str) -> str:
+    if not os.path.isdir(cwd):
+        raise GitError(f"no such directory: {cwd}")
     try:
         proc = subprocess.run(["git", *args], cwd=cwd, capture_output=True, check=False)
     except FileNotFoundError as exc:  # pragma: no cover

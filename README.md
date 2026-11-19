@@ -10,7 +10,7 @@ Find the code that hurts: hotspots, bus factor, hidden coupling, stale and orpha
 [![CI](https://github.com/ckh0at/git-xray/actions/workflows/ci.yml/badge.svg)](https://github.com/ckh0at/git-xray/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-<img src="docs/demo.svg" alt="git-xray running on the Flask repository" width="820">
+<img src="https://raw.githubusercontent.com/ckh0at/git-xray/main/docs/demo.svg" alt="git-xray running on the Flask repository" width="820">
 
 </div>
 

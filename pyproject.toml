@@ -19,8 +19,16 @@ classifiers = [
 ]
 dependencies = []
 
+[project.urls]
+Homepage = "https://github.com/ckh0at/git-xray"
+Source = "https://github.com/ckh0at/git-xray"
+Issues = "https://github.com/ckh0at/git-xray/issues"
+
 [project.scripts]
 git-xray = "git_xray.cli:main"
+
+[tool.hatch.build.targets.sdist]
+include = ["src/", "tests/", "README.md", "LICENSE", "pyproject.toml"]
 
 [tool.hatch.version]
 path = "src/git_xray/__init__.py"
