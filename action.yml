@@ -1,7 +1,5 @@
 name: git-xray PR check
-description: >-
-  Flag risky pull requests from git history: hotspots touched, files that usually
-  change together but were skipped, orphaned code, and who knows the code best.
+description: "Flag risky pull requests using git history: hotspots touched, files usually changed together but skipped, who to ask."
 author: ckh0at
 branding:
   icon: search
