@@ -245,8 +245,14 @@ def test_ascii_output_aligns_in_cjk_terminal(tmp_path):
                          capture_output=True, env=env, check=True).stdout.decode("utf-8")
     plain = re.sub(r"\x1b\[[0-9;]*m", "", out)
     assert "Hotspots" in plain and "Orphaned code" in plain
+    probe = ("import os, sys, locale; from git_xray import render; "
+             "print({k: os.environ.get(k) for k in ('LANG', 'LC_ALL', 'LC_CTYPE', "
+             "'GIT_XRAY_ICONS')}, sys.stdout.encoding, locale.getpreferredencoding(False), "
+             "render.__file__, render.detect_icons(sys.stdout))")
+    diag = subprocess.run([sys.executable, "-c", probe], capture_output=True, env=env,
+                          text=True).stdout.strip()
     for line in plain.splitlines():
-        assert cjk_width(line) == len(line), f"double-width glyph in: {line!r}"
+        assert cjk_width(line) == len(line), f"double-width glyph in: {line!r}\n{diag}"
         assert len(line) <= 100, f"line wider than terminal: {line!r}"
 
 
