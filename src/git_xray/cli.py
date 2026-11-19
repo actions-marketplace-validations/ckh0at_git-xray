@@ -8,7 +8,7 @@ import sys
 
 from . import __version__
 from .analysis import GitError, analyze
-from .render import render_markdown, render_terminal, use_color
+from .render import ICON_MODES, detect_icons, render_markdown, render_terminal, use_color
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -46,6 +46,9 @@ def build_parser() -> argparse.ArgumentParser:
     fmt.add_argument("--md", "--markdown", dest="md", action="store_true",
                      help="markdown output")
     ap.add_argument("--color", choices=["auto", "always", "never"], default="auto")
+    ap.add_argument("--icons", choices=["auto", *ICON_MODES], default="auto",
+                    help="emoji, plain (no emoji) or ascii. Use plain/ascii if you see "
+                         "garbled symbols. Also settable via GIT_XRAY_ICONS")
     ap.add_argument("-V", "--version", action="version", version=f"git-xray {__version__}")
     return ap
 
@@ -53,8 +56,14 @@ def build_parser() -> argparse.ArgumentParser:
 def main(argv: list[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
     for stream in (sys.stdout, sys.stderr):
-        enc = (getattr(stream, "encoding", "") or "").lower().replace("-", "")
-        if enc != "utf8" and hasattr(stream, "reconfigure"):
+        if not hasattr(stream, "reconfigure"):
+            continue
+        if stream.isatty():
+            # Keep the console's own encoding (e.g. GBK); forcing UTF-8 there
+            # turns every non-ASCII glyph into mojibake. Never crash, though.
+            stream.reconfigure(errors="replace")
+        else:
+            # Files and pipes: write UTF-8 so --md / --json are portable.
             stream.reconfigure(encoding="utf-8", errors="replace")
     try:
         report = analyze(
@@ -72,7 +81,8 @@ def main(argv: list[str] | None = None) -> int:
         print(render_markdown(report))
     else:
         force = {"always": True, "never": False}.get(args.color)
-        print(render_terminal(report, color=use_color(sys.stdout, force)))
+        icons = args.icons if args.icons != "auto" else detect_icons(sys.stdout)
+        print(render_terminal(report, color=use_color(sys.stdout, force), icons=icons))
     return 0
 
 

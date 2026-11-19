@@ -88,6 +88,7 @@ usage: git-xray [-h] [-C DIR] [--since WHEN] [-n TOP] [--depth DEPTH]
 | `--no-default-excludes` | | Keep lockfiles, `vendor/`, `dist/`, changelogs, minified files… |
 | `--include-bots` | | Count dependabot, renovate and other bots |
 | `--color` | auto | Respects `NO_COLOR` and `FORCE_COLOR` |
+| `--icons` | auto | `emoji`, `plain` (no emoji) or `ascii`. Also `GIT_XRAY_ICONS` |
 
 </details>
 
@@ -113,6 +114,11 @@ point is to know *where to look*.
 Most repos take a second or two. On huge monorepos, narrow it down with `--since` or a path.
 
 **Does it send my code anywhere?** No. It runs `git` locally and prints to your terminal.
+
+**I see boxes or garbled symbols instead of emoji.** git-xray picks a glyph set
+from your terminal's encoding, but some terminals still can't draw emoji. Use
+`git xray --icons plain` (no emoji) or `--icons ascii`, or set it once with
+`export GIT_XRAY_ICONS=plain` (PowerShell: `$env:GIT_XRAY_ICONS="plain"`).
 
 **Why `git xray` and not `git-xray`?** Both work. git treats any `git-<name>`
 executable on your `PATH` as a subcommand.

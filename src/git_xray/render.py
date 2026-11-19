@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import os
+import re
 import shutil
 import sys
 import time
@@ -20,6 +21,55 @@ MAGENTA = "\x1b[35m"
 CYAN = "\x1b[36m"
 
 BAR_BLOCKS = " ▏▎▍▌▋▊▉█"
+
+
+ICON_MODES = ("emoji", "plain", "ascii")
+
+EMOJI = re.compile("[\U0001F300-\U0001FAFF]\ufe0f? ?")
+
+# Unicode glyphs the renderer uses -> ASCII stand-ins of the same width.
+ASCII_MAP = str.maketrans({
+    "█": "#", "▏": " ", "▎": " ", "▍": " ", "▌": " ", "▋": " ", "▊": " ", "▉": " ",
+    "─": "-", "⇄": "~", "⚠": "!", "…": "~", "→": ">", "·": "|", "±": "+",
+})
+GLYPH_PROBE = "█▏▎▍▌▋▊▉─…→·±"  # needed for "plain"; ⇄ ⚠ are swapped out there
+PLAIN_MAP = str.maketrans({"⇄": "~", "⚠": "!"})
+
+
+def detect_icons(stream=sys.stdout, env=None, platform: str = sys.platform) -> str:
+    """Pick the richest glyph set this terminal can show.
+
+    * ascii: the stream encoding cannot even encode block characters (e.g. cp1252, ascii)
+    * plain: box-drawing works but emoji are unlikely to render (legacy Windows consoles)
+    * emoji: everything else
+    """
+    env = os.environ if env is None else env
+    forced = env.get("GIT_XRAY_ICONS", "").lower()
+    if forced in ICON_MODES:
+        return forced
+    enc = getattr(stream, "encoding", None) or "ascii"
+    try:
+        GLYPH_PROBE.encode(enc)
+    except (UnicodeEncodeError, LookupError):
+        return "ascii"
+    try:
+        "🔥".encode(enc)
+    except (UnicodeEncodeError, LookupError):
+        return "plain"
+    if platform == "win32" and not (env.get("WT_SESSION") or env.get("TERM_PROGRAM")):
+        return "plain"  # conhost / old cmd.exe draws emoji as boxes
+    if env.get("TERM") == "linux":
+        return "plain"  # Linux virtual console
+    return "emoji"
+
+
+def apply_icons(text: str, mode: str) -> str:
+    if mode == "emoji":
+        return text
+    text = EMOJI.sub("", text).translate(PLAIN_MAP)
+    if mode == "ascii":
+        text = text.translate(ASCII_MAP)
+    return text
 
 
 def use_color(stream=sys.stdout, force: bool | None = None) -> bool:
@@ -90,7 +140,7 @@ def human(n: int) -> str:
 
 
 def render_terminal(report: Report, color: bool = True, width: int | None = None,
-                    now: float | None = None) -> str:
+                    now: float | None = None, icons: str = "emoji") -> str:
     p = Painter(color)
     now = time.time() if now is None else now
     width = width or min(shutil.get_terminal_size((100, 24)).columns, 120)
@@ -176,7 +226,7 @@ def render_terminal(report: Report, color: bool = True, width: int | None = None
         add("  " + p(bar(c["commits"] / max_c, 16), CYAN) + " %5d  " % c["commits"]
             + c["name"] + " " + p("(±%s lines)" % human(c["lines"]), DIM))
     add("")
-    return "\n".join(lines)
+    return apply_icons("\n".join(lines), icons)
 
 
 def render_markdown(report: Report, now: float | None = None) -> str:

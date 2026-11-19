@@ -176,3 +176,35 @@ def test_cli_json_and_errors(repo, capsys, tmp_path_factory):
     assert data["hotspots"][0]["path"] == "a.py"
     not_a_repo = tmp_path_factory.mktemp("plain")
     assert main(["-C", str(not_a_repo)]) == 2
+
+
+class FakeStream:
+    def __init__(self, encoding):
+        self.encoding = encoding
+
+
+def test_detect_icons():
+    from git_xray.render import detect_icons
+    linux = {"TERM": "xterm-256color"}
+    assert detect_icons(FakeStream("utf-8"), linux, "linux") == "emoji"
+    assert detect_icons(FakeStream("cp1252"), {}, "win32") == "ascii"
+    assert detect_icons(FakeStream("ascii"), linux, "linux") == "ascii"
+    # Chinese Windows console: GBK has block chars but no emoji
+    assert detect_icons(FakeStream("gbk"), {}, "win32") == "plain"
+    assert detect_icons(FakeStream("utf-8"), {}, "win32") == "plain"  # old conhost
+    assert detect_icons(FakeStream("utf-8"), {"WT_SESSION": "1"}, "win32") == "emoji"
+    assert detect_icons(FakeStream("utf-8"), {"GIT_XRAY_ICONS": "ascii"}, "linux") == "ascii"
+
+
+def test_icon_modes_render(repo):
+    repo.commit({"a.py": lines(10), "b.py": lines(10)})
+    r = analyze(repo.path, now=repo.t)
+    plain = render_terminal(r, color=False, width=100, now=repo.t, icons="plain")
+    assert "🔥" not in plain and "Hotspots" in plain and "█" in plain
+    plain.encode("gbk")  # must survive a Chinese Windows console
+    ascii_out = render_terminal(r, color=False, width=100, now=repo.t, icons="ascii")
+    ascii_out.encode("ascii")  # must not raise
+    assert "Hotspots" in ascii_out
+    # Same column layout in every mode
+    emoji_lines = render_terminal(r, color=False, width=100, now=repo.t).splitlines()
+    assert len(emoji_lines) == len(ascii_out.splitlines())
