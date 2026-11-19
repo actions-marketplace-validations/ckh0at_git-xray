@@ -197,6 +197,9 @@ def test_detect_icons():
     assert d("utf-8", {"WT_SESSION": "1"}, "win32", "cp1252") == "emoji"
     assert d("utf-8", {"GIT_XRAY_ICONS": "plain", "LANG": "ja_JP.UTF-8"}) == "plain"
     assert d("utf-8", {"LANG": "en_US.UTF-8", "TERM": "linux"}) == "plain"
+    # an explicit non-CJK LC_CTYPE still overrides a CJK LANG
+    assert d("utf-8", {"LANG": "ja_JP.UTF-8", "LC_CTYPE": "en_US.UTF-8"}) == "emoji"
+    assert d("utf-8", {"LC_CTYPE": "C.UTF-8"}) == "emoji"
 
 
 @pytest.mark.parametrize("enc, env, plat, pref", [
@@ -207,6 +210,9 @@ def test_detect_icons():
     ("utf-8", {"WT_SESSION": "1"}, "win32", "cp932"),     # Japanese Windows Terminal
     ("gbk", {}, "win32", "cp936"),                        # Chinese cmd.exe
     ("utf-8", {"TERM_PROGRAM": "mintty"}, "win32", "cp932"),  # Git Bash, JP Windows
+    # ja_JP locale not installed: Python adds LC_CTYPE=C.UTF-8 (PEP 538)
+    ("utf-8", {"LANG": "ja_JP.UTF-8", "LC_CTYPE": "C.UTF-8"}, "linux", "UTF-8"),
+    ("utf-8", {"LANG": "zh_CN.UTF-8", "LC_ALL": "C"}, "linux", "UTF-8"),
 ])
 def test_cjk_terminals_get_ascii(enc, env, plat, pref):
     from git_xray.render import detect_icons

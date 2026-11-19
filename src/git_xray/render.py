@@ -54,10 +54,12 @@ def is_cjk_terminal(stream_encoding: str, env, preferred_encoding: str = "") -> 
     """
     for var in ("LC_ALL", "LC_CTYPE", "LANG"):
         value = env.get(var)
-        if value:  # first one set wins, like setlocale()
-            if value.lower()[:2] in CJK_LANGS:
-                return True
-            break
+        # Skip the neutral C/POSIX locales: Python itself injects
+        # LC_CTYPE=C.UTF-8 (PEP 538) when the user's locale, e.g. ja_JP.UTF-8,
+        # is not installed, which would otherwise hide the user's language.
+        if value and value.split(".")[0].upper() not in ("C", "POSIX"):
+            return value.lower()[:2] in CJK_LANGS or any(
+                _norm(e) in CJK_ENCODINGS for e in (stream_encoding, preferred_encoding) if e)
     return any(_norm(e) in CJK_ENCODINGS for e in (stream_encoding, preferred_encoding) if e)
 
 
