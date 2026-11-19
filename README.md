@@ -1,6 +1,8 @@
 <div align="center">
 
-# git-xray 🩻
+<img src="https://raw.githubusercontent.com/ckh0at/git-xray/main/docs/logo.svg" alt="" width="96">
+
+# git-xray
 
 **X-ray any git repository in one command.**
 Find the code that hurts: hotspots, bus factor, hidden coupling, stale and orphaned files.
@@ -128,7 +130,7 @@ jobs:
 
 Every pull request gets one comment that stays up to date as you push:
 
-> ### 🩻 git-xray PR check: 🔴 High risk
+> ### 🔍 git-xray PR check: 🔴 High risk
 > This PR touches the repo's #2 hotspot and skips 1 file that usually changes together
 > with the files it edits.
 >

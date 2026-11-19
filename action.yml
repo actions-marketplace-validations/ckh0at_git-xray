@@ -4,8 +4,8 @@ description: >-
   change together but were skipped, orphaned code, and who knows the code best.
 author: ckh0at
 branding:
-  icon: activity
-  color: purple
+  icon: search
+  color: blue
 
 inputs:
   base:

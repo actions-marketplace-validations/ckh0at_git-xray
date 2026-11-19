@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" role="img" aria-label="git-xray logo">
+  <defs>
+    <linearGradient id="lens" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#6366f1"/>
+      <stop offset="1" stop-color="#06b6d4"/>
+    </linearGradient>
+    <linearGradient id="glass" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#eef2ff"/>
+      <stop offset="1" stop-color="#ecfeff"/>
+    </linearGradient>
+    <clipPath id="inside"><circle cx="54" cy="54" r="34"/></clipPath>
+  </defs>
+  <!-- handle -->
+  <line x1="80" y1="80" x2="112" y2="112" stroke="url(#lens)" stroke-width="14" stroke-linecap="round"/>
+  <!-- glass -->
+  <circle cx="54" cy="54" r="34" fill="url(#glass)"/>
+  <!-- git history inside the lens -->
+  <g clip-path="url(#inside)" stroke-linecap="round" fill="none">
+    <path d="M14 66 H94" stroke="#94a3b8" stroke-width="5"/>
+    <path d="M38 66 C46 66 46 42 56 42 H94" stroke="#94a3b8" stroke-width="5"/>
+  </g>
+  <circle cx="28" cy="66" r="6.5" fill="#64748b"/>
+  <circle cx="52" cy="66" r="6.5" fill="#64748b"/>
+  <circle cx="78" cy="66" r="6.5" fill="#64748b"/>
+  <circle cx="72" cy="42" r="6.5" fill="#64748b"/>
+  <!-- the hotspot -->
+  <circle cx="56" cy="42" r="12" fill="#f43f5e" opacity="0.22"/>
+  <circle cx="56" cy="42" r="7.5" fill="#f43f5e"/>
+  <!-- rim -->
+  <circle cx="54" cy="54" r="34" fill="none" stroke="url(#lens)" stroke-width="9"/>
+  <!-- glint -->
+  <path d="M33 37 A26 26 0 0 1 47 26" stroke="#ffffff" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.9"/>
+</svg>
