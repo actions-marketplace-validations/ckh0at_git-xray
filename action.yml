@@ -1,0 +1,60 @@
+name: git-xray PR check
+description: >-
+  Flag risky pull requests from git history: hotspots touched, files that usually
+  change together but were skipped, orphaned code, and who knows the code best.
+author: ckh0at
+branding:
+  icon: activity
+  color: purple
+
+inputs:
+  base:
+    description: Branch or commit to compare with. Defaults to the pull request's base branch.
+    required: false
+    default: ""
+  comment:
+    description: >-
+      When to post the PR comment: "always", "risky" (only medium or high risk) or "never".
+      An existing comment is always kept up to date.
+    required: false
+    default: "always"
+  fail-on:
+    description: Fail the job at this risk level or above. "never", "medium" or "high".
+    required: false
+    default: "never"
+  since:
+    description: Only learn from history newer than this, e.g. "2 years ago". Speeds up huge repos.
+    required: false
+    default: ""
+  version:
+    description: git-xray-tool version to install, e.g. "0.2.0". Defaults to the latest release.
+    required: false
+    default: ""
+  package:
+    description: Advanced. Full pip requirement to install instead of git-xray-tool (e.g. a local wheel).
+    required: false
+    default: ""
+  github-token:
+    description: "Token used to post the comment. Needs the pull-requests: write permission."
+    required: false
+    default: ${{ github.token }}
+
+outputs:
+  risk:
+    description: '"low", "medium" or "high"'
+    value: ${{ steps.xray.outputs.risk }}
+
+runs:
+  using: composite
+  steps:
+    - id: xray
+      shell: bash
+      env:
+        INPUT_BASE: ${{ inputs.base }}
+        INPUT_COMMENT: ${{ inputs.comment }}
+        INPUT_FAIL_ON: ${{ inputs.fail-on }}
+        INPUT_SINCE: ${{ inputs.since }}
+        INPUT_VERSION: ${{ inputs.version }}
+        INPUT_PACKAGE: ${{ inputs.package }}
+        GH_TOKEN: ${{ inputs.github-token }}
+      run: bash "$GITHUB_ACTION_PATH/action/run.sh"

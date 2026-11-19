@@ -48,6 +48,7 @@ step and a spreadsheet. `git-xray` gives you the answers in one command.
 | 🧊 **Stale code** | Which big files has nobody touched in a year? |
 | 👻 **Orphaned code** | Which files were mostly written by someone who is no longer active? |
 | 👥 **Contributors** | Who did the work in this time range? |
+| 🤖 **PR check** | Is *this change* risky? Did it forget a file? Who should review it? See [below](#check-every-pull-request-). |
 
 ## Usage
 
@@ -66,6 +67,7 @@ git xray -C ~/code/other-repo     # analyse another repo
 ```bash
 git xray --md > XRAY.md           # Markdown: paste into a PR, wiki or issue
 git xray --json | jq '.hotspots'  # JSON: build your own dashboards or CI checks
+git xray --diff origin/main       # PR check for the current branch (also --md / --json)
 ```
 
 <details>
@@ -94,6 +96,58 @@ usage: git-xray [-h] [-C DIR] [--since WHEN] [-n TOP] [--depth DEPTH]
 
 </details>
 
+## Check every pull request 🤖
+
+`git xray --diff origin/main` looks only at what your branch changes and asks history three
+questions:
+
+- 🔥 **Does it touch a hotspot?** Those files deserve a careful review.
+- 🔗 **Did it forget something?** You changed `api.py`, which changed together with
+  `schema.py` in 100% of past commits, but this PR leaves `schema.py` alone.
+- 👀 **Who should review it?** The people who wrote most of these files.
+
+### As a GitHub Action
+
+Add `.github/workflows/git-xray.yml`:
+
+```yaml
+name: git-xray
+on: pull_request
+permissions:
+  contents: read
+  pull-requests: write
+jobs:
+  xray:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0        # git-xray needs the history
+      - uses: ckh0at/git-xray@v0
+```
+
+Every pull request gets one comment that stays up to date as you push:
+
+> ### 🩻 git-xray PR check: 🔴 High risk
+> This PR touches the repo's #2 hotspot and skips 1 file that usually changes together
+> with the files it edits.
+>
+> #### 🔗 Possibly missing changes
+> - `schema.py`: changed together with `api.py` in 100% of their commits (7×)
+>
+> **👀 Know these files best:** Alice (54%), Bob (46%)
+
+| Input | Default | Meaning |
+|---|---|---|
+| `comment` | `always` | `always`, `risky` (only medium/high risk) or `never`. The report is always in the job summary. |
+| `fail-on` | `never` | Fail the check at `medium` or `high` risk |
+| `base` | PR base branch | Branch or commit to compare with |
+| `since` | all history | Learn only from recent history, e.g. `2 years ago` |
+| `version` | latest | Pin a git-xray-tool version |
+
+The action also sets an output `risk` (`low`, `medium` or `high`) for later steps. Forked
+PRs get a read-only token from GitHub, so for them the report goes to the job summary only.
+
 ## How the numbers are computed
 
 - **Hotspot score** = `commits / max_commits × log(loc) / log(max_loc)`. Change frequency
@@ -102,6 +156,11 @@ usage: git-xray [-h] [-C DIR] [--since WHEN] [-n TOP] [--depth DEPTH]
   changed lines in a directory.
 - **Coupling degree** = `shared_commits / average(commits of A, commits of B)`. Commits
   touching more than 30 files (mass renames, formatting) are ignored.
+- **PR check**: history up to the base branch is used, so the PR's own commits do not count.
+  A changed file is a *hotspot* if it ranks in the repo's top 10 (or top 5%) with a score of
+  at least 0.25. A file is *possibly missing* if it changed together with an edited file in at
+  least 60% of their commits (3+ times). *High* risk means a top-3 hotspot in a repo with 20+
+  files, or a skipped partner coupled 90%+ over 5+ commits.
 - **Orphaned** = the main author wrote at least 50% of the file and has made no commit in
   `--stale-days`.
 - Renames are followed (`git log -M`), so history survives `git mv`. Merge commits are skipped.
@@ -130,7 +189,7 @@ executable on your `PATH` as a subcommand.
 ## Contributing
 
 Issues and PRs are welcome! Ideas we would love help with:
-an HTML report, `--fail-on` thresholds for CI, and per-author knowledge maps.
+an HTML report, GitLab / Bitbucket integration, and per-author knowledge maps.
 
 ```bash
 git clone https://github.com/ckh0at/git-xray && cd git-xray

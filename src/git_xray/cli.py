@@ -8,7 +8,9 @@ import sys
 
 from . import __version__
 from .analysis import GitError, analyze
-from .render import ICON_MODES, detect_icons, render_markdown, render_terminal, use_color
+from .render import (ICON_MODES, detect_icons, render_markdown, render_review_markdown,
+                     render_review_terminal, render_terminal, use_color)
+from .review import review
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -20,10 +22,14 @@ def build_parser() -> argparse.ArgumentParser:
                "  git xray --since '6 months ago'\n"
                "  git xray src/ --top 20\n"
                "  git xray --md > XRAY.md        # markdown for PRs / wikis\n"
-               "  git xray --json | jq .hotspots",
+               "  git xray --json | jq .hotspots\n"
+               "  git xray --diff origin/main    # PR check: risks in this branch's changes",
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )
     ap.add_argument("paths", nargs="*", help="limit analysis to these paths")
+    ap.add_argument("--diff", metavar="BASE",
+                    help="PR check: report risks in the files changed since BASE "
+                         "(e.g. origin/main) instead of a whole-repo report")
     ap.add_argument("-C", dest="repo", default=".", metavar="DIR",
                     help="run as if started in DIR (like git -C)")
     ap.add_argument("--since", metavar="WHEN",
@@ -65,6 +71,8 @@ def main(argv: list[str] | None = None) -> int:
         else:
             # Files and pipes: write UTF-8 so --md / --json are portable.
             stream.reconfigure(encoding="utf-8", errors="replace")
+    if args.diff:
+        return run_review(args)
     try:
         report = analyze(
             args.repo, since=args.since, paths=args.paths or None, excludes=args.exclude,
@@ -83,6 +91,25 @@ def main(argv: list[str] | None = None) -> int:
         force = {"always": True, "never": False}.get(args.color)
         icons = args.icons if args.icons != "auto" else detect_icons(sys.stdout)
         print(render_terminal(report, color=use_color(sys.stdout, force), icons=icons))
+    return 0
+
+
+def run_review(args) -> int:
+    try:
+        rv = review(args.repo, base=args.diff, since=args.since, excludes=args.exclude,
+                    use_default_excludes=not args.no_default_excludes,
+                    include_bots=args.include_bots, stale_days=args.stale_days)
+    except GitError as exc:
+        print(f"git-xray: {exc}", file=sys.stderr)
+        return 2
+    if args.json:
+        print(json.dumps(rv.to_dict(), indent=2, ensure_ascii=False))
+    elif args.md:
+        print(render_review_markdown(rv))
+    else:
+        force = {"always": True, "never": False}.get(args.color)
+        icons = args.icons if args.icons != "auto" else detect_icons(sys.stdout)
+        print(render_review_terminal(rv, color=use_color(sys.stdout, force), icons=icons))
     return 0
 
 

@@ -232,11 +232,50 @@ class Report:
         }
 
 
-def analyze(repo: str = ".", since: str | None = None, paths: list[str] | None = None,
+@dataclass
+class History:
+    """Everything mined from `git log`, before it is cut down into a Report."""
+    root: str
+    commits: list[Commit]
+    files: dict[str, FileStats]
+    pair_counts: Counter
+    author_last: dict[str, int]
+    contributor_commits: Counter
+    contributor_lines: Counter
+    now: float
+
+    def hotspot_ranking(self) -> list[dict]:
+        max_commits = max((f.commits for f in self.files.values()), default=1) or 1
+        max_loc = max((f.loc for f in self.files.values()), default=1) or 1
+        scored = []
+        for f in self.files.values():
+            if f.loc == 0:
+                continue
+            score = (f.commits / max_commits) * (math.log1p(f.loc) / math.log1p(max_loc))
+            author, share = f.main_author
+            scored.append({
+                "path": f.path, "score": round(score, 4), "commits": f.commits,
+                "loc": f.loc, "churn": f.churn, "authors": len(f.authors),
+                "main_author": author, "main_author_share": round(share, 3),
+                "last_change": f.last_seen,
+            })
+        scored.sort(key=lambda r: (-r["score"], -r["commits"], r["path"]))
+        return scored
+
+    def coupling_degree(self, a: str, b: str) -> tuple[int, float]:
+        key = (a, b) if a < b else (b, a)
+        shared = self.pair_counts.get(key, 0)
+        if not shared:
+            return 0, 0.0
+        degree = shared / ((self.files[a].commits + self.files[b].commits) / 2)
+        return shared, round(min(degree, 1.0), 3)
+
+
+def collect(repo: str = ".", since: str | None = None, paths: list[str] | None = None,
             excludes: list[str] | None = None, use_default_excludes: bool = True,
-            top: int = 10, depth: int = 1, min_coupling: int = 5,
-            stale_days: int = 365, include_bots: bool = False,
-            now: float | None = None) -> Report:
+            include_bots: bool = False, now: float | None = None,
+            rev: str = "HEAD") -> History:
+    """Mine history reachable from `rev`. Files are those tracked at HEAD."""
     root = run_git(["rev-parse", "--show-toplevel"], repo).strip()
     try:
         run_git(["rev-parse", "--verify", "-q", "HEAD"], root)
@@ -245,7 +284,7 @@ def analyze(repo: str = ".", since: str | None = None, paths: list[str] | None =
     patterns = (DEFAULT_EXCLUDES if use_default_excludes else []) + list(excludes or [])
     now = time.time() if now is None else now
 
-    commits = read_log(root, since=since, paths=paths)
+    commits = read_log(root, since=since, paths=paths, rev=rev)
     if not include_bots:
         commits = [c for c in commits if not is_bot(c.author)]
     alive = {p for p in tracked_files(root) if not is_excluded(p, patterns)}
@@ -282,22 +321,24 @@ def analyze(repo: str = ".", since: str | None = None, paths: list[str] | None =
     for fs in files.values():
         fs.loc = count_loc(root, fs.path)
 
+    return History(root, commits, files, pair_counts, author_last,
+                   contributor_commits, contributor_lines, now)
+
+
+def analyze(repo: str = ".", since: str | None = None, paths: list[str] | None = None,
+            excludes: list[str] | None = None, use_default_excludes: bool = True,
+            top: int = 10, depth: int = 1, min_coupling: int = 5,
+            stale_days: int = 365, include_bots: bool = False,
+            now: float | None = None, history: History | None = None) -> Report:
+    h = history or collect(repo, since=since, paths=paths, excludes=excludes,
+                           use_default_excludes=use_default_excludes,
+                           include_bots=include_bots, now=now)
+    root, commits, files, now = h.root, h.commits, h.files, h.now
+    pair_counts, author_last = h.pair_counts, h.author_last
+    contributor_commits, contributor_lines = h.contributor_commits, h.contributor_lines
+
     # Hotspots: change frequency x (log) size, both normalised to the repo max.
-    max_commits = max((f.commits for f in files.values()), default=1) or 1
-    max_loc = max((f.loc for f in files.values()), default=1) or 1
-    scored = []
-    for f in files.values():
-        if f.loc == 0:
-            continue
-        score = (f.commits / max_commits) * (math.log1p(f.loc) / math.log1p(max_loc))
-        author, share = f.main_author
-        scored.append({
-            "path": f.path, "score": round(score, 4), "commits": f.commits,
-            "loc": f.loc, "churn": f.churn, "authors": len(f.authors),
-            "main_author": author, "main_author_share": round(share, 3),
-            "last_change": f.last_seen,
-        })
-    scored.sort(key=lambda r: (-r["score"], -r["commits"], r["path"]))
+    scored = h.hotspot_ranking()
 
     # Ownership / bus factor per directory.
     dir_authors: dict[str, Counter] = defaultdict(Counter)
