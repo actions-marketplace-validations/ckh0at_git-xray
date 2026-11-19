@@ -115,8 +115,10 @@ Most repos take a second or two. On huge monorepos, narrow it down with `--since
 
 **Does it send my code anywhere?** No. It runs `git` locally and prints to your terminal.
 
-**I see boxes or garbled symbols instead of emoji.** git-xray picks a glyph set
-from your terminal's encoding, but some terminals still can't draw emoji. Use
+**I see boxes, garbled symbols or broken columns.** git-xray picks a glyph set
+from your terminal. In Japanese, Chinese and Korean locales it uses plain ASCII,
+because those terminals draw box and block characters double-wide. Some other
+terminals still can't draw emoji. Use
 `git xray --icons plain` (no emoji) or `--icons ascii`, or set it once with
 `export GIT_XRAY_ICONS=plain` (PowerShell: `$env:GIT_XRAY_ICONS="plain"`).
 

@@ -30,24 +30,59 @@ EMOJI = re.compile("[\U0001F300-\U0001FAFF]\ufe0f? ?")
 # Unicode glyphs the renderer uses -> ASCII stand-ins of the same width.
 ASCII_MAP = str.maketrans({
     "█": "#", "▏": " ", "▎": " ", "▍": " ", "▌": " ", "▋": " ", "▊": " ", "▉": " ",
-    "─": "-", "⇄": "~", "⚠": "!", "…": "~", "→": ">", "·": "|", "±": "+",
+    "─": "-", "⇄": "<->", "⚠": "!", "…": "~", "→": ">", "·": "|", "±": "+",
 })
 GLYPH_PROBE = "█▏▎▍▌▋▊▉─…→·±"  # needed for "plain"; ⇄ ⚠ are swapped out there
-PLAIN_MAP = str.maketrans({"⇄": "~", "⚠": "!"})
+PLAIN_MAP = str.maketrans({"⇄": "<->", "⚠": "!"})
 
 
-def detect_icons(stream=sys.stdout, env=None, platform: str = sys.platform) -> str:
-    """Pick the richest glyph set this terminal can show.
+CJK_LANGS = ("ja", "zh", "ko")
+CJK_ENCODINGS = {
+    "cp932", "shiftjis", "sjis", "eucjp", "iso2022jp", "cp936", "gbk", "gb2312",
+    "gb18030", "big5", "cp950", "big5hkscs", "cp949", "euckr", "johab",
+}
 
-    * ascii: the stream encoding cannot even encode block characters (e.g. cp1252, ascii)
-    * plain: box-drawing works but emoji are unlikely to render (legacy Windows consoles)
+
+def _norm(enc: str) -> str:
+    return enc.lower().replace("-", "").replace("_", "")
+
+
+def is_cjk_terminal(stream_encoding: str, env, preferred_encoding: str = "") -> bool:
+    """True when the terminal probably draws East-Asian *ambiguous* characters
+    (box lines, block bars, arrows, ellipsis...) two columns wide, which wrecks
+    column alignment. That is the default in Japanese, Chinese and Korean setups.
+    """
+    for var in ("LC_ALL", "LC_CTYPE", "LANG"):
+        value = env.get(var)
+        if value:  # first one set wins, like setlocale()
+            if value.lower()[:2] in CJK_LANGS:
+                return True
+            break
+    return any(_norm(e) in CJK_ENCODINGS for e in (stream_encoding, preferred_encoding) if e)
+
+
+def detect_icons(stream=sys.stdout, env=None, platform: str = sys.platform,
+                 preferred_encoding: str | None = None) -> str:
+    """Pick the richest glyph set this terminal can show correctly.
+
+    * ascii: encoding cannot represent the glyphs, or a CJK terminal that draws
+      ambiguous-width glyphs double-wide
+    * plain: glyphs work but emoji probably do not (legacy Windows console, Linux VT)
     * emoji: everything else
     """
     env = os.environ if env is None else env
     forced = env.get("GIT_XRAY_ICONS", "").lower()
     if forced in ICON_MODES:
         return forced
+    if preferred_encoding is None:
+        try:
+            import locale
+            preferred_encoding = locale.getpreferredencoding(False) or ""
+        except Exception:  # pragma: no cover
+            preferred_encoding = ""
     enc = getattr(stream, "encoding", None) or "ascii"
+    if is_cjk_terminal(enc, env, preferred_encoding):
+        return "ascii"
     try:
         GLYPH_PROBE.encode(enc)
     except (UnicodeEncodeError, LookupError):

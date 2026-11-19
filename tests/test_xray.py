@@ -185,15 +185,69 @@ class FakeStream:
 
 def test_detect_icons():
     from git_xray.render import detect_icons
-    linux = {"TERM": "xterm-256color"}
-    assert detect_icons(FakeStream("utf-8"), linux, "linux") == "emoji"
-    assert detect_icons(FakeStream("cp1252"), {}, "win32") == "ascii"
-    assert detect_icons(FakeStream("ascii"), linux, "linux") == "ascii"
-    # Chinese Windows console: GBK has block chars but no emoji
-    assert detect_icons(FakeStream("gbk"), {}, "win32") == "plain"
-    assert detect_icons(FakeStream("utf-8"), {}, "win32") == "plain"  # old conhost
-    assert detect_icons(FakeStream("utf-8"), {"WT_SESSION": "1"}, "win32") == "emoji"
-    assert detect_icons(FakeStream("utf-8"), {"GIT_XRAY_ICONS": "ascii"}, "linux") == "ascii"
+
+    def d(enc, env, plat="linux", pref="UTF-8"):
+        return detect_icons(FakeStream(enc), env, plat, preferred_encoding=pref)
+
+    en = {"LANG": "en_US.UTF-8", "TERM": "xterm-256color"}
+    assert d("utf-8", en) == "emoji"
+    assert d("ascii", en) == "ascii"
+    assert d("cp1252", {}, "win32", "cp1252") == "ascii"
+    assert d("utf-8", {}, "win32", "cp1252") == "plain"  # old conhost
+    assert d("utf-8", {"WT_SESSION": "1"}, "win32", "cp1252") == "emoji"
+    assert d("utf-8", {"GIT_XRAY_ICONS": "plain", "LANG": "ja_JP.UTF-8"}) == "plain"
+    assert d("utf-8", {"LANG": "en_US.UTF-8", "TERM": "linux"}) == "plain"
+
+
+@pytest.mark.parametrize("enc, env, plat, pref", [
+    ("utf-8", {"LANG": "ja_JP.UTF-8", "TERM": "xterm-256color"}, "linux", "UTF-8"),
+    ("utf-8", {"LC_ALL": "zh_CN.UTF-8"}, "linux", "UTF-8"),
+    ("utf-8", {"LANG": "ko_KR.UTF-8"}, "darwin", "UTF-8"),
+    ("cp932", {}, "win32", "cp932"),                      # Japanese cmd.exe
+    ("utf-8", {"WT_SESSION": "1"}, "win32", "cp932"),     # Japanese Windows Terminal
+    ("gbk", {}, "win32", "cp936"),                        # Chinese cmd.exe
+    ("utf-8", {"TERM_PROGRAM": "mintty"}, "win32", "cp932"),  # Git Bash, JP Windows
+])
+def test_cjk_terminals_get_ascii(enc, env, plat, pref):
+    from git_xray.render import detect_icons
+    assert detect_icons(FakeStream(enc), env, plat, preferred_encoding=pref) == "ascii"
+
+
+def cjk_width(text):
+    """Display width in a CJK terminal: wide AND ambiguous chars take 2 cells."""
+    import unicodedata
+    return sum(2 if unicodedata.east_asian_width(c) in "WFA" else 1 for c in text)
+
+
+def test_ascii_output_aligns_in_cjk_terminal(tmp_path):
+    """Simulate a Japanese terminal end to end and check nothing is double-wide."""
+    import re
+    import subprocess
+    import sys
+
+    (tmp_path / "jp").mkdir()
+    r = Repo(tmp_path / "jp")
+    r.commit({"src/core.py": lines(400), "src/api.py": lines(50)})
+    for i in range(6):
+        r.commit({"src/core.py": lines(400, str(i)), "src/api.py": lines(50, str(i))},
+                 author="Bob" if i % 2 else "Alice")
+    r.commit({"legacy/old.py": lines(300)}, author="Dana", days_later=1)
+    r.commit({"src/core.py": lines(401)}, days_later=800)
+
+    env = dict(os.environ, LANG="ja_JP.UTF-8", LC_ALL="", LC_CTYPE="",
+               PYTHONIOENCODING="utf-8", COLUMNS="100")
+    env.pop("GIT_XRAY_ICONS", None)
+    env.pop("LC_ALL")
+    env.pop("LC_CTYPE")
+    code = ("import sys; sys.stdout.isatty = lambda: True; "
+            "from git_xray.cli import main; sys.exit(main(sys.argv[1:]))")
+    out = subprocess.run([sys.executable, "-c", code, "-C", r.path, "--color", "always"],
+                         capture_output=True, env=env, check=True).stdout.decode("utf-8")
+    plain = re.sub(r"\x1b\[[0-9;]*m", "", out)
+    assert "Hotspots" in plain and "Orphaned code" in plain
+    for line in plain.splitlines():
+        assert cjk_width(line) == len(line), f"double-width glyph in: {line!r}"
+        assert len(line) <= 100, f"line wider than terminal: {line!r}"
 
 
 def test_icon_modes_render(repo):
@@ -201,7 +255,6 @@ def test_icon_modes_render(repo):
     r = analyze(repo.path, now=repo.t)
     plain = render_terminal(r, color=False, width=100, now=repo.t, icons="plain")
     assert "🔥" not in plain and "Hotspots" in plain and "█" in plain
-    plain.encode("gbk")  # must survive a Chinese Windows console
     ascii_out = render_terminal(r, color=False, width=100, now=repo.t, icons="ascii")
     ascii_out.encode("ascii")  # must not raise
     assert "Hotspots" in ascii_out
