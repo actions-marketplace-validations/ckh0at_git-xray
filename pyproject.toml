@@ -1,0 +1,26 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "git-xray"
+dynamic = ["version"]
+description = "X-ray any git repo in one command: hotspots, bus factor, hidden coupling, stale code. Zero dependencies."
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.9"
+keywords = ["git", "code-quality", "technical-debt", "hotspots", "bus-factor", "cli", "code-analysis"]
+classifiers = [
+  "Environment :: Console",
+  "Intended Audience :: Developers",
+  "Programming Language :: Python :: 3",
+  "Topic :: Software Development :: Quality Assurance",
+  "Topic :: Software Development :: Version Control :: Git",
+]
+dependencies = []
+
+[project.scripts]
+git-xray = "git_xray.cli:main"
+
+[tool.hatch.version]
+path = "src/git_xray/__init__.py"

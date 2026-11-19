@@ -1,0 +1,230 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="846" height="1012" viewBox="0 0 846 1012" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="14">
+<rect width="846" height="1012" rx="10" fill="#0d1117"/>
+<circle cx="20" cy="18" r="6" fill="#ff5f57"/>
+<circle cx="40" cy="18" r="6" fill="#febc2e"/>
+<circle cx="60" cy="18" r="6" fill="#28c840"/>
+<text x="423.0" y="22" fill="#7d8590" text-anchor="middle" font-size="12">~/flask — git xray</text>
+<rect x="20.0" y="44" width="84.0" height="19" fill="#e6edf3"/>
+<text x="20.0" y="58" fill="#0d1117" font-weight="bold" xml:space="preserve" textLength="84.0" lengthAdjust="spacingAndGlyphs"> git-xray </text>
+<text x="104.0" y="58" fill="#e6edf3" xml:space="preserve" textLength="16.8" lengthAdjust="spacingAndGlyphs">  </text>
+<text x="120.8" y="58" fill="#66d9e8" font-weight="bold" xml:space="preserve" textLength="42.0" lengthAdjust="spacingAndGlyphs">flask</text>
+<text x="20.0" y="77" fill="#7d8590" xml:space="preserve" textLength="537.6" lengthAdjust="spacingAndGlyphs">3682 commits · 855 authors · 231 files · 2010-04-06 → 2026-10-31</text>
+<text x="20.0" y="115" fill="#e6edf3" font-weight="bold" xml:space="preserve" textLength="92.4" lengthAdjust="spacingAndGlyphs">🔥 Hotspots</text>
+<text x="112.4" y="115" fill="#e6edf3" xml:space="preserve" textLength="16.8" lengthAdjust="spacingAndGlyphs">  </text>
+<text x="129.2" y="115" fill="#7d8590" xml:space="preserve" textLength="487.2" lengthAdjust="spacingAndGlyphs">files that change often AND are big. Refactor these first.</text>
+<text x="20.0" y="134" fill="#7d8590" xml:space="preserve" textLength="806.4" lengthAdjust="spacingAndGlyphs">────────────────────────────────────────────────────────────────────────────────────────────────</text>
+<text x="20.0" y="153" fill="#7d8590" xml:space="preserve" textLength="16.8" lengthAdjust="spacingAndGlyphs"> 1</text>
+<text x="36.8" y="153" fill="#e6edf3" xml:space="preserve" textLength="8.4" lengthAdjust="spacingAndGlyphs"> </text>
+<text x="45.2" y="153" fill="#ff6b6b" xml:space="preserve" textLength="84.0" lengthAdjust="spacingAndGlyphs">█████████▏</text>
+<text x="129.2" y="153" fill="#e6edf3" xml:space="preserve" textLength="386.4" lengthAdjust="spacingAndGlyphs"> src/flask/sansio/app.py                      </text>
+<text x="515.6" y="153" fill="#e6edf3" font-weight="bold" xml:space="preserve" textLength="100.8" lengthAdjust="spacingAndGlyphs"> 477 commits</text>
+<text x="616.4" y="153" fill="#e6edf3" xml:space="preserve" textLength="8.4" lengthAdjust="spacingAndGlyphs"> </text>
+<text x="624.8" y="153" fill="#7d8590" xml:space="preserve" textLength="84.0" lengthAdjust="spacingAndGlyphs">   833 loc</text>
+<text x="708.8" y="153" fill="#e6edf3" xml:space="preserve" textLength="8.4" lengthAdjust="spacingAndGlyphs"> </text>
+<text x="717.2" y="153" fill="#7d8590" xml:space="preserve" textLength="92.4" lengthAdjust="spacingAndGlyphs">135 authors</text>
+<text x="20.0" y="172" fill="#7d8590" xml:space="preserve" textLength="16.8" lengthAdjust="spacingAndGlyphs"> 2</text>
+<text x="36.8" y="172" fill="#e6edf3" xml:space="preserve" textLength="8.4" lengthAdjust="spacingAndGlyphs"> </text>
+<text x="45.2" y="172" fill="#ffd43b" xml:space="preserve" textLength="84.0" lengthAdjust="spacingAndGlyphs">█████▏    </text>
+<text x="129.2" y="172" fill="#e6edf3" xml:space="preserve" textLength="386.4" lengthAdjust="spacingAndGlyphs"> src/flask/helpers.py                         </text>
+<text x="515.6" y="172" fill="#e6edf3" font-weight="bold" xml:space="preserve" textLength="100.8" lengthAdjust="spacingAndGlyphs"> 289 commits</text>
+<text x="616.4" y="172" fill="#e6edf3" xml:space="preserve" textLength="8.4" lengthAdjust="spacingAndGlyphs"> </text>
+<text x="624.8" y="172" fill="#7d8590" xml:space="preserve" textLength="84.0" lengthAdjust="spacingAndGlyphs">   531 loc</text>
+<text x="708.8" y="172" fill="#e6edf3" xml:space="preserve" textLength="8.4" lengthAdjust="spacingAndGlyphs"> </text>
+<text x="717.2" y="172" fill="#7d8590" xml:space="preserve" textLength="84.0" lengthAdjust="spacingAndGlyphs">83 authors</text>
+<text x="20.0" y="191" fill="#7d8590" xml:space="preserve" textLength="16.8" lengthAdjust="spacingAndGlyphs"> 3</text>
+<text x="36.8" y="191" fill="#e6edf3" xml:space="preserve" textLength="8.4" lengthAdjust="spacingAndGlyphs"> </text>
+<text x="45.2" y="191" fill="#ffd43b" xml:space="preserve" textLength="84.0" lengthAdjust="spacingAndGlyphs">████▏     </text>
+<text x="129.2" y="191" fill="#e6edf3" xml:space="preserve" textLength="386.4" lengthAdjust="spacingAndGlyphs"> tests/test_basic.py                          </text>
+<text x="515.6" y="191" fill="#e6edf3" font-weight="bold" xml:space="preserve" textLength="100.8" lengthAdjust="spacingAndGlyphs"> 198 commits</text>
+<text x="616.4" y="191" fill="#e6edf3" xml:space="preserve" textLength="8.4" lengthAdjust="spacingAndGlyphs"> </text>
+<text x="624.8" y="191" fill="#7d8590" xml:space="preserve" textLength="84.0" lengthAdjust="spacingAndGlyphs">  1.5k loc</text>
+<text x="708.8" y="191" fill="#e6edf3" xml:space="preserve" textLength="8.4" lengthAdjust="spacingAndGlyphs"> </text>
+<text x="717.2" y="191" fill="#7d8590" xml:space="preserve" textLength="84.0" lengthAdjust="spacingAndGlyphs">59 authors</text>
+<text x="20.0" y="210" fill="#7d8590" xml:space="preserve" textLength="16.8" lengthAdjust="spacingAndGlyphs"> 4</text>
+<text x="36.8" y="210" fill="#e6edf3" xml:space="preserve" textLength="8.4" lengthAdjust="spacingAndGlyphs"> </text>
+<text x="45.2" y="210" fill="#ffd43b" xml:space="preserve" textLength="84.0" lengthAdjust="spacingAndGlyphs">███▌      </text>
+<text x="129.2" y="210" fill="#e6edf3" xml:space="preserve" textLength="386.4" lengthAdjust="spacingAndGlyphs"> src/flask/cli.py                             </text>
+<text x="515.6" y="210" fill="#e6edf3" font-weight="bold" xml:space="preserve" textLength="100.8" lengthAdjust="spacingAndGlyphs"> 182 commits</text>
+<text x="616.4" y="210" fill="#e6edf3" xml:space="preserve" textLength="8.4" lengthAdjust="spacingAndGlyphs"> </text>
+<text x="624.8" y="210" fill="#7d8590" xml:space="preserve" textLength="84.0" lengthAdjust="spacingAndGlyphs">   898 loc</text>
+<text x="708.8" y="210" fill="#e6edf3" xml:space="preserve" textLength="8.4" lengthAdjust="spacingAndGlyphs"> </text>
+<text x="717.2" y="210" fill="#7d8590" xml:space="preserve" textLength="84.0" lengthAdjust="spacingAndGlyphs">59 authors</text>
+<text x="20.0" y="229" fill="#7d8590" xml:space="preserve" textLength="16.8" lengthAdjust="spacingAndGlyphs"> 5</text>
+<text x="36.8" y="229" fill="#e6edf3" xml:space="preserve" textLength="8.4" lengthAdjust="spacingAndGlyphs"> </text>
+<text x="45.2" y="229" fill="#ffd43b" xml:space="preserve" textLength="84.0" lengthAdjust="spacingAndGlyphs">███▍      </text>
+<text x="129.2" y="229" fill="#e6edf3" xml:space="preserve" textLength="386.4" lengthAdjust="spacingAndGlyphs"> docs/quickstart.rst                          </text>
+<text x="515.6" y="229" fill="#e6edf3" font-weight="bold" xml:space="preserve" textLength="100.8" lengthAdjust="spacingAndGlyphs"> 185 commits</text>
+<text x="616.4" y="229" fill="#e6edf3" xml:space="preserve" textLength="8.4" lengthAdjust="spacingAndGlyphs"> </text>
+<text x="624.8" y="229" fill="#7d8590" xml:space="preserve" textLength="84.0" lengthAdjust="spacingAndGlyphs">   631 loc</text>
+<text x="708.8" y="229" fill="#e6edf3" xml:space="preserve" textLength="8.4" lengthAdjust="spacingAndGlyphs"> </text>
+<text x="717.2" y="229" fill="#7d8590" xml:space="preserve" textLength="84.0" lengthAdjust="spacingAndGlyphs">77 authors</text>
+<text x="20.0" y="267" fill="#e6edf3" font-weight="bold" xml:space="preserve" textLength="109.2" lengthAdjust="spacingAndGlyphs">🚌 Bus factor</text>
+<text x="129.2" y="267" fill="#e6edf3" xml:space="preserve" textLength="16.8" lengthAdjust="spacingAndGlyphs">  </text>
+<text x="146.0" y="267" fill="#7d8590" xml:space="preserve" textLength="478.8" lengthAdjust="spacingAndGlyphs">how many people must leave before nobody knows this code.</text>
+<text x="20.0" y="286" fill="#7d8590" xml:space="preserve" textLength="806.4" lengthAdjust="spacingAndGlyphs">────────────────────────────────────────────────────────────────────────────────────────────────</text>
+<text x="20.0" y="305" fill="#e6edf3" xml:space="preserve" textLength="16.8" lengthAdjust="spacingAndGlyphs">  </text>
+<text x="36.8" y="305" fill="#ff6b6b" font-weight="bold" xml:space="preserve" textLength="42.0" lengthAdjust="spacingAndGlyphs">bus=1</text>
+<text x="78.8" y="305" fill="#ff6b6b" font-weight="bold" xml:space="preserve" textLength="16.8" lengthAdjust="spacingAndGlyphs"> ⚠</text>
+<text x="95.6" y="305" fill="#e6edf3" xml:space="preserve" textLength="386.4" lengthAdjust="spacingAndGlyphs"> examples/                                    </text>
+<text x="482.0" y="305" fill="#ff6b6b" xml:space="preserve" textLength="67.2" lengthAdjust="spacingAndGlyphs">██████▍ </text>
+<text x="549.2" y="305" fill="#e6edf3" xml:space="preserve" textLength="58.8" lengthAdjust="spacingAndGlyphs">   80% </text>
+<text x="608.0" y="305" fill="#e599f7" xml:space="preserve" textLength="84.0" lengthAdjust="spacingAndGlyphs">David Lord</text>
+<text x="20.0" y="324" fill="#e6edf3" xml:space="preserve" textLength="16.8" lengthAdjust="spacingAndGlyphs">  </text>
+<text x="36.8" y="324" fill="#ff6b6b" font-weight="bold" xml:space="preserve" textLength="42.0" lengthAdjust="spacingAndGlyphs">bus=1</text>
+<text x="78.8" y="324" fill="#ff6b6b" font-weight="bold" xml:space="preserve" textLength="16.8" lengthAdjust="spacingAndGlyphs"> ⚠</text>
+<text x="95.6" y="324" fill="#e6edf3" xml:space="preserve" textLength="386.4" lengthAdjust="spacingAndGlyphs"> ./                                           </text>
+<text x="482.0" y="324" fill="#ff6b6b" xml:space="preserve" textLength="67.2" lengthAdjust="spacingAndGlyphs">██████▉ </text>
+<text x="549.2" y="324" fill="#e6edf3" xml:space="preserve" textLength="58.8" lengthAdjust="spacingAndGlyphs">   87% </text>
+<text x="608.0" y="324" fill="#e599f7" xml:space="preserve" textLength="84.0" lengthAdjust="spacingAndGlyphs">David Lord</text>
+<text x="20.0" y="343" fill="#e6edf3" xml:space="preserve" textLength="16.8" lengthAdjust="spacingAndGlyphs">  </text>
+<text x="36.8" y="343" fill="#ff6b6b" font-weight="bold" xml:space="preserve" textLength="42.0" lengthAdjust="spacingAndGlyphs">bus=1</text>
+<text x="78.8" y="343" fill="#ff6b6b" font-weight="bold" xml:space="preserve" textLength="16.8" lengthAdjust="spacingAndGlyphs"> ⚠</text>
+<text x="95.6" y="343" fill="#e6edf3" xml:space="preserve" textLength="386.4" lengthAdjust="spacingAndGlyphs"> .github/                                     </text>
+<text x="482.0" y="343" fill="#ff6b6b" xml:space="preserve" textLength="67.2" lengthAdjust="spacingAndGlyphs">███████▊</text>
+<text x="549.2" y="343" fill="#e6edf3" xml:space="preserve" textLength="58.8" lengthAdjust="spacingAndGlyphs">   97% </text>
+<text x="608.0" y="343" fill="#e599f7" xml:space="preserve" textLength="84.0" lengthAdjust="spacingAndGlyphs">David Lord</text>
+<text x="20.0" y="362" fill="#e6edf3" xml:space="preserve" textLength="16.8" lengthAdjust="spacingAndGlyphs">  </text>
+<text x="36.8" y="362" fill="#ff6b6b" font-weight="bold" xml:space="preserve" textLength="42.0" lengthAdjust="spacingAndGlyphs">bus=1</text>
+<text x="78.8" y="362" fill="#ff6b6b" font-weight="bold" xml:space="preserve" textLength="16.8" lengthAdjust="spacingAndGlyphs"> ⚠</text>
+<text x="95.6" y="362" fill="#e6edf3" xml:space="preserve" textLength="386.4" lengthAdjust="spacingAndGlyphs"> .devcontainer/                               </text>
+<text x="482.0" y="362" fill="#ff6b6b" xml:space="preserve" textLength="67.2" lengthAdjust="spacingAndGlyphs">██████▍ </text>
+<text x="549.2" y="362" fill="#e6edf3" xml:space="preserve" textLength="58.8" lengthAdjust="spacingAndGlyphs">   81% </text>
+<text x="608.0" y="362" fill="#e599f7" xml:space="preserve" textLength="84.0" lengthAdjust="spacingAndGlyphs">emisargent</text>
+<text x="20.0" y="381" fill="#e6edf3" xml:space="preserve" textLength="16.8" lengthAdjust="spacingAndGlyphs">  </text>
+<text x="36.8" y="381" fill="#ffd43b" font-weight="bold" xml:space="preserve" textLength="42.0" lengthAdjust="spacingAndGlyphs">bus=2</text>
+<text x="78.8" y="381" fill="#e6edf3" xml:space="preserve" textLength="403.2" lengthAdjust="spacingAndGlyphs">   docs/                                        </text>
+<text x="482.0" y="381" fill="#ffd43b" xml:space="preserve" textLength="67.2" lengthAdjust="spacingAndGlyphs">███▌    </text>
+<text x="549.2" y="381" fill="#e6edf3" xml:space="preserve" textLength="58.8" lengthAdjust="spacingAndGlyphs">   45% </text>
+<text x="608.0" y="381" fill="#e599f7" xml:space="preserve" textLength="84.0" lengthAdjust="spacingAndGlyphs">David Lord</text>
+<text x="20.0" y="419" fill="#e6edf3" font-weight="bold" xml:space="preserve" textLength="151.2" lengthAdjust="spacingAndGlyphs">🔗 Hidden coupling</text>
+<text x="171.2" y="419" fill="#e6edf3" xml:space="preserve" textLength="16.8" lengthAdjust="spacingAndGlyphs">  </text>
+<text x="188.0" y="419" fill="#7d8590" xml:space="preserve" textLength="462.0" lengthAdjust="spacingAndGlyphs">files that always change together. Missing abstraction?</text>
+<text x="20.0" y="438" fill="#7d8590" xml:space="preserve" textLength="806.4" lengthAdjust="spacingAndGlyphs">────────────────────────────────────────────────────────────────────────────────────────────────</text>
+<text x="20.0" y="457" fill="#e6edf3" xml:space="preserve" textLength="16.8" lengthAdjust="spacingAndGlyphs">  </text>
+<text x="36.8" y="457" fill="#ff6b6b" font-weight="bold" xml:space="preserve" textLength="33.6" lengthAdjust="spacingAndGlyphs"> 86%</text>
+<text x="70.4" y="457" fill="#e6edf3" xml:space="preserve" textLength="243.6" lengthAdjust="spacingAndGlyphs"> …/javascript/pyproject.toml </text>
+<text x="314.0" y="457" fill="#66d9e8" xml:space="preserve" textLength="8.4" lengthAdjust="spacingAndGlyphs">⇄</text>
+<text x="322.4" y="457" fill="#e6edf3" xml:space="preserve" textLength="243.6" lengthAdjust="spacingAndGlyphs"> …es/tutorial/pyproject.toml </text>
+<text x="566.0" y="457" fill="#7d8590" xml:space="preserve" textLength="92.4" lengthAdjust="spacingAndGlyphs">(6 commits)</text>
+<text x="20.0" y="476" fill="#e6edf3" xml:space="preserve" textLength="16.8" lengthAdjust="spacingAndGlyphs">  </text>
+<text x="36.8" y="476" fill="#ff6b6b" font-weight="bold" xml:space="preserve" textLength="33.6" lengthAdjust="spacingAndGlyphs"> 83%</text>
+<text x="70.4" y="476" fill="#e6edf3" xml:space="preserve" textLength="126.0" lengthAdjust="spacingAndGlyphs"> docs/Makefile </text>
+<text x="196.4" y="476" fill="#66d9e8" xml:space="preserve" textLength="8.4" lengthAdjust="spacingAndGlyphs">⇄</text>
+<text x="204.8" y="476" fill="#e6edf3" xml:space="preserve" textLength="126.0" lengthAdjust="spacingAndGlyphs"> docs/make.bat </text>
+<text x="330.8" y="476" fill="#7d8590" xml:space="preserve" textLength="92.4" lengthAdjust="spacingAndGlyphs">(5 commits)</text>
+<text x="20.0" y="495" fill="#e6edf3" xml:space="preserve" textLength="16.8" lengthAdjust="spacingAndGlyphs">  </text>
+<text x="36.8" y="495" fill="#ff6b6b" font-weight="bold" xml:space="preserve" textLength="33.6" lengthAdjust="spacingAndGlyphs"> 77%</text>
+<text x="70.4" y="495" fill="#e6edf3" xml:space="preserve" textLength="243.6" lengthAdjust="spacingAndGlyphs"> …ples/celery/pyproject.toml </text>
+<text x="314.0" y="495" fill="#66d9e8" xml:space="preserve" textLength="8.4" lengthAdjust="spacingAndGlyphs">⇄</text>
+<text x="322.4" y="495" fill="#e6edf3" xml:space="preserve" textLength="243.6" lengthAdjust="spacingAndGlyphs"> …es/tutorial/pyproject.toml </text>
+<text x="566.0" y="495" fill="#7d8590" xml:space="preserve" textLength="92.4" lengthAdjust="spacingAndGlyphs">(5 commits)</text>
+<text x="20.0" y="514" fill="#e6edf3" xml:space="preserve" textLength="16.8" lengthAdjust="spacingAndGlyphs">  </text>
+<text x="36.8" y="514" fill="#ff6b6b" font-weight="bold" xml:space="preserve" textLength="33.6" lengthAdjust="spacingAndGlyphs"> 67%</text>
+<text x="70.4" y="514" fill="#e6edf3" xml:space="preserve" textLength="168.0" lengthAdjust="spacingAndGlyphs"> docs/debugging.rst </text>
+<text x="238.4" y="514" fill="#66d9e8" xml:space="preserve" textLength="8.4" lengthAdjust="spacingAndGlyphs">⇄</text>
+<text x="246.8" y="514" fill="#e6edf3" xml:space="preserve" textLength="226.8" lengthAdjust="spacingAndGlyphs"> docs/tutorial/factory.rst </text>
+<text x="473.6" y="514" fill="#7d8590" xml:space="preserve" textLength="92.4" lengthAdjust="spacingAndGlyphs">(8 commits)</text>
+<text x="20.0" y="533" fill="#e6edf3" xml:space="preserve" textLength="16.8" lengthAdjust="spacingAndGlyphs">  </text>
+<text x="36.8" y="533" fill="#ff6b6b" font-weight="bold" xml:space="preserve" textLength="33.6" lengthAdjust="spacingAndGlyphs"> 67%</text>
+<text x="70.4" y="533" fill="#e6edf3" xml:space="preserve" textLength="243.6" lengthAdjust="spacingAndGlyphs"> …ples/celery/pyproject.toml </text>
+<text x="314.0" y="533" fill="#66d9e8" xml:space="preserve" textLength="8.4" lengthAdjust="spacingAndGlyphs">⇄</text>
+<text x="322.4" y="533" fill="#e6edf3" xml:space="preserve" textLength="243.6" lengthAdjust="spacingAndGlyphs"> …/javascript/pyproject.toml </text>
+<text x="566.0" y="533" fill="#7d8590" xml:space="preserve" textLength="92.4" lengthAdjust="spacingAndGlyphs">(5 commits)</text>
+<text x="20.0" y="571" fill="#e6edf3" font-weight="bold" xml:space="preserve" textLength="109.2" lengthAdjust="spacingAndGlyphs">🧊 Stale code</text>
+<text x="129.2" y="571" fill="#e6edf3" xml:space="preserve" textLength="16.8" lengthAdjust="spacingAndGlyphs">  </text>
+<text x="146.0" y="571" fill="#7d8590" xml:space="preserve" textLength="369.6" lengthAdjust="spacingAndGlyphs">big files nobody has touched in a long time.</text>
+<text x="20.0" y="590" fill="#7d8590" xml:space="preserve" textLength="806.4" lengthAdjust="spacingAndGlyphs">────────────────────────────────────────────────────────────────────────────────────────────────</text>
+<text x="20.0" y="609" fill="#e6edf3" xml:space="preserve" textLength="16.8" lengthAdjust="spacingAndGlyphs">  </text>
+<text x="36.8" y="609" fill="#74c0fc" xml:space="preserve" textLength="67.2" lengthAdjust="spacingAndGlyphs">15mo ago</text>
+<text x="104.0" y="609" fill="#e6edf3" xml:space="preserve" textLength="386.4" lengthAdjust="spacingAndGlyphs"> src/flask/sansio/blueprints.py               </text>
+<text x="490.4" y="609" fill="#7d8590" xml:space="preserve" textLength="84.0" lengthAdjust="spacingAndGlyphs">   572 loc</text>
+<text x="574.4" y="609" fill="#e6edf3" xml:space="preserve" textLength="8.4" lengthAdjust="spacingAndGlyphs"> </text>
+<text x="582.8" y="609" fill="#e599f7" xml:space="preserve" textLength="84.0" lengthAdjust="spacingAndGlyphs">David Lord</text>
+<text x="20.0" y="628" fill="#e6edf3" xml:space="preserve" textLength="16.8" lengthAdjust="spacingAndGlyphs">  </text>
+<text x="36.8" y="628" fill="#74c0fc" xml:space="preserve" textLength="67.2" lengthAdjust="spacingAndGlyphs">14mo ago</text>
+<text x="104.0" y="628" fill="#e6edf3" xml:space="preserve" textLength="386.4" lengthAdjust="spacingAndGlyphs"> docs/tutorial/tests.rst                      </text>
+<text x="490.4" y="628" fill="#7d8590" xml:space="preserve" textLength="84.0" lengthAdjust="spacingAndGlyphs">   406 loc</text>
+<text x="574.4" y="628" fill="#e6edf3" xml:space="preserve" textLength="8.4" lengthAdjust="spacingAndGlyphs"> </text>
+<text x="582.8" y="628" fill="#e599f7" xml:space="preserve" textLength="84.0" lengthAdjust="spacingAndGlyphs">David Lord</text>
+<text x="20.0" y="647" fill="#e6edf3" xml:space="preserve" textLength="16.8" lengthAdjust="spacingAndGlyphs">  </text>
+<text x="36.8" y="647" fill="#74c0fc" xml:space="preserve" textLength="67.2" lengthAdjust="spacingAndGlyphs">18mo ago</text>
+<text x="104.0" y="647" fill="#e6edf3" xml:space="preserve" textLength="386.4" lengthAdjust="spacingAndGlyphs"> tests/test_templating.py                     </text>
+<text x="490.4" y="647" fill="#7d8590" xml:space="preserve" textLength="84.0" lengthAdjust="spacingAndGlyphs">   387 loc</text>
+<text x="574.4" y="647" fill="#e6edf3" xml:space="preserve" textLength="8.4" lengthAdjust="spacingAndGlyphs"> </text>
+<text x="582.8" y="647" fill="#e599f7" xml:space="preserve" textLength="168.0" lengthAdjust="spacingAndGlyphs">Markus Unterwaditzer</text>
+<text x="20.0" y="666" fill="#e6edf3" xml:space="preserve" textLength="16.8" lengthAdjust="spacingAndGlyphs">  </text>
+<text x="36.8" y="666" fill="#74c0fc" xml:space="preserve" textLength="67.2" lengthAdjust="spacingAndGlyphs">  3y ago</text>
+<text x="104.0" y="666" fill="#e6edf3" xml:space="preserve" textLength="386.4" lengthAdjust="spacingAndGlyphs"> docs/cli.rst                                 </text>
+<text x="490.4" y="666" fill="#7d8590" xml:space="preserve" textLength="84.0" lengthAdjust="spacingAndGlyphs">   367 loc</text>
+<text x="574.4" y="666" fill="#e6edf3" xml:space="preserve" textLength="8.4" lengthAdjust="spacingAndGlyphs"> </text>
+<text x="582.8" y="666" fill="#e599f7" xml:space="preserve" textLength="84.0" lengthAdjust="spacingAndGlyphs">David Lord</text>
+<text x="20.0" y="685" fill="#e6edf3" xml:space="preserve" textLength="16.8" lengthAdjust="spacingAndGlyphs">  </text>
+<text x="36.8" y="685" fill="#74c0fc" xml:space="preserve" textLength="67.2" lengthAdjust="spacingAndGlyphs">  2y ago</text>
+<text x="104.0" y="685" fill="#e6edf3" xml:space="preserve" textLength="386.4" lengthAdjust="spacingAndGlyphs"> src/flask/config.py                          </text>
+<text x="490.4" y="685" fill="#7d8590" xml:space="preserve" textLength="84.0" lengthAdjust="spacingAndGlyphs">   286 loc</text>
+<text x="574.4" y="685" fill="#e6edf3" xml:space="preserve" textLength="8.4" lengthAdjust="spacingAndGlyphs"> </text>
+<text x="582.8" y="685" fill="#e599f7" xml:space="preserve" textLength="84.0" lengthAdjust="spacingAndGlyphs">David Lord</text>
+<text x="20.0" y="723" fill="#e6edf3" font-weight="bold" xml:space="preserve" textLength="134.4" lengthAdjust="spacingAndGlyphs">👻 Orphaned code</text>
+<text x="154.4" y="723" fill="#e6edf3" xml:space="preserve" textLength="16.8" lengthAdjust="spacingAndGlyphs">  </text>
+<text x="171.2" y="723" fill="#7d8590" xml:space="preserve" textLength="520.8" lengthAdjust="spacingAndGlyphs">main author has gone quiet. Knowledge may have left with them.</text>
+<text x="20.0" y="742" fill="#7d8590" xml:space="preserve" textLength="806.4" lengthAdjust="spacingAndGlyphs">────────────────────────────────────────────────────────────────────────────────────────────────</text>
+<text x="20.0" y="761" fill="#e6edf3" xml:space="preserve" textLength="16.8" lengthAdjust="spacingAndGlyphs">  </text>
+<text x="36.8" y="761" fill="#74c0fc" xml:space="preserve" textLength="67.2" lengthAdjust="spacingAndGlyphs">      2y</text>
+<text x="104.0" y="761" fill="#e6edf3" xml:space="preserve" textLength="386.4" lengthAdjust="spacingAndGlyphs"> src/flask/app.py                             </text>
+<text x="490.4" y="761" fill="#7d8590" xml:space="preserve" textLength="84.0" lengthAdjust="spacingAndGlyphs">  1.4k loc</text>
+<text x="574.4" y="761" fill="#e6edf3" xml:space="preserve" textLength="8.4" lengthAdjust="spacingAndGlyphs"> </text>
+<text x="582.8" y="761" fill="#e599f7" xml:space="preserve" textLength="58.8" lengthAdjust="spacingAndGlyphs">pgjones</text>
+<text x="641.6" y="761" fill="#7d8590" xml:space="preserve" textLength="50.4" lengthAdjust="spacingAndGlyphs"> (66%)</text>
+<text x="20.0" y="780" fill="#e6edf3" xml:space="preserve" textLength="16.8" lengthAdjust="spacingAndGlyphs">  </text>
+<text x="36.8" y="780" fill="#74c0fc" xml:space="preserve" textLength="67.2" lengthAdjust="spacingAndGlyphs">      6y</text>
+<text x="104.0" y="780" fill="#e6edf3" xml:space="preserve" textLength="386.4" lengthAdjust="spacingAndGlyphs"> docs/design.rst                              </text>
+<text x="490.4" y="780" fill="#7d8590" xml:space="preserve" textLength="84.0" lengthAdjust="spacingAndGlyphs">   182 loc</text>
+<text x="574.4" y="780" fill="#e6edf3" xml:space="preserve" textLength="8.4" lengthAdjust="spacingAndGlyphs"> </text>
+<text x="582.8" y="780" fill="#e599f7" xml:space="preserve" textLength="117.6" lengthAdjust="spacingAndGlyphs">Armin Ronacher</text>
+<text x="700.4" y="780" fill="#7d8590" xml:space="preserve" textLength="50.4" lengthAdjust="spacingAndGlyphs"> (50%)</text>
+<text x="20.0" y="799" fill="#e6edf3" xml:space="preserve" textLength="16.8" lengthAdjust="spacingAndGlyphs">  </text>
+<text x="36.8" y="799" fill="#74c0fc" xml:space="preserve" textLength="67.2" lengthAdjust="spacingAndGlyphs">      6y</text>
+<text x="104.0" y="799" fill="#e6edf3" xml:space="preserve" textLength="386.4" lengthAdjust="spacingAndGlyphs"> docs/patterns/sqlalchemy.rst                 </text>
+<text x="490.4" y="799" fill="#7d8590" xml:space="preserve" textLength="84.0" lengthAdjust="spacingAndGlyphs">   151 loc</text>
+<text x="574.4" y="799" fill="#e6edf3" xml:space="preserve" textLength="8.4" lengthAdjust="spacingAndGlyphs"> </text>
+<text x="582.8" y="799" fill="#e599f7" xml:space="preserve" textLength="117.6" lengthAdjust="spacingAndGlyphs">Armin Ronacher</text>
+<text x="700.4" y="799" fill="#7d8590" xml:space="preserve" textLength="50.4" lengthAdjust="spacingAndGlyphs"> (69%)</text>
+<text x="20.0" y="818" fill="#e6edf3" xml:space="preserve" textLength="16.8" lengthAdjust="spacingAndGlyphs">  </text>
+<text x="36.8" y="818" fill="#74c0fc" xml:space="preserve" textLength="67.2" lengthAdjust="spacingAndGlyphs">      6y</text>
+<text x="104.0" y="818" fill="#e6edf3" xml:space="preserve" textLength="386.4" lengthAdjust="spacingAndGlyphs"> docs/patterns/appdispatch.rst                </text>
+<text x="490.4" y="818" fill="#7d8590" xml:space="preserve" textLength="84.0" lengthAdjust="spacingAndGlyphs">   139 loc</text>
+<text x="574.4" y="818" fill="#e6edf3" xml:space="preserve" textLength="8.4" lengthAdjust="spacingAndGlyphs"> </text>
+<text x="582.8" y="818" fill="#e599f7" xml:space="preserve" textLength="117.6" lengthAdjust="spacingAndGlyphs">Armin Ronacher</text>
+<text x="700.4" y="818" fill="#7d8590" xml:space="preserve" textLength="50.4" lengthAdjust="spacingAndGlyphs"> (55%)</text>
+<text x="20.0" y="837" fill="#e6edf3" xml:space="preserve" textLength="16.8" lengthAdjust="spacingAndGlyphs">  </text>
+<text x="36.8" y="837" fill="#74c0fc" xml:space="preserve" textLength="67.2" lengthAdjust="spacingAndGlyphs">      6y</text>
+<text x="104.0" y="837" fill="#e6edf3" xml:space="preserve" textLength="386.4" lengthAdjust="spacingAndGlyphs"> docs/patterns/fileuploads.rst                </text>
+<text x="490.4" y="837" fill="#7d8590" xml:space="preserve" textLength="84.0" lengthAdjust="spacingAndGlyphs">   139 loc</text>
+<text x="574.4" y="837" fill="#e6edf3" xml:space="preserve" textLength="8.4" lengthAdjust="spacingAndGlyphs"> </text>
+<text x="582.8" y="837" fill="#e599f7" xml:space="preserve" textLength="117.6" lengthAdjust="spacingAndGlyphs">Armin Ronacher</text>
+<text x="700.4" y="837" fill="#7d8590" xml:space="preserve" textLength="50.4" lengthAdjust="spacingAndGlyphs"> (65%)</text>
+<text x="20.0" y="875" fill="#e6edf3" font-weight="bold" xml:space="preserve" textLength="159.6" lengthAdjust="spacingAndGlyphs">👥 Top contributors</text>
+<text x="179.6" y="875" fill="#e6edf3" xml:space="preserve" textLength="16.8" lengthAdjust="spacingAndGlyphs">  </text>
+<text x="196.4" y="875" fill="#7d8590" xml:space="preserve" textLength="277.2" lengthAdjust="spacingAndGlyphs">by commits in the analysed range.</text>
+<text x="20.0" y="894" fill="#7d8590" xml:space="preserve" textLength="806.4" lengthAdjust="spacingAndGlyphs">────────────────────────────────────────────────────────────────────────────────────────────────</text>
+<text x="20.0" y="913" fill="#e6edf3" xml:space="preserve" textLength="16.8" lengthAdjust="spacingAndGlyphs">  </text>
+<text x="36.8" y="913" fill="#66d9e8" xml:space="preserve" textLength="134.4" lengthAdjust="spacingAndGlyphs">████████████████</text>
+<text x="171.2" y="913" fill="#e6edf3" xml:space="preserve" textLength="193.2" lengthAdjust="spacingAndGlyphs">   977  Armin Ronacher </text>
+<text x="364.4" y="913" fill="#7d8590" xml:space="preserve" textLength="100.8" lengthAdjust="spacingAndGlyphs">(±26k lines)</text>
+<text x="20.0" y="932" fill="#e6edf3" xml:space="preserve" textLength="16.8" lengthAdjust="spacingAndGlyphs">  </text>
+<text x="36.8" y="932" fill="#66d9e8" xml:space="preserve" textLength="134.4" lengthAdjust="spacingAndGlyphs">█████████████▌  </text>
+<text x="171.2" y="932" fill="#e6edf3" xml:space="preserve" textLength="159.6" lengthAdjust="spacingAndGlyphs">   827  David Lord </text>
+<text x="330.8" y="932" fill="#7d8590" xml:space="preserve" textLength="100.8" lengthAdjust="spacingAndGlyphs">(±51k lines)</text>
+<text x="20.0" y="951" fill="#e6edf3" xml:space="preserve" textLength="16.8" lengthAdjust="spacingAndGlyphs">  </text>
+<text x="36.8" y="951" fill="#66d9e8" xml:space="preserve" textLength="134.4" lengthAdjust="spacingAndGlyphs">██▏             </text>
+<text x="171.2" y="951" fill="#e6edf3" xml:space="preserve" textLength="243.6" lengthAdjust="spacingAndGlyphs">   133  Markus Unterwaditzer </text>
+<text x="414.8" y="951" fill="#7d8590" xml:space="preserve" textLength="100.8" lengthAdjust="spacingAndGlyphs">(±11k lines)</text>
+<text x="20.0" y="970" fill="#e6edf3" xml:space="preserve" textLength="16.8" lengthAdjust="spacingAndGlyphs">  </text>
+<text x="36.8" y="970" fill="#66d9e8" xml:space="preserve" textLength="134.4" lengthAdjust="spacingAndGlyphs">█▍              </text>
+<text x="171.2" y="970" fill="#e6edf3" xml:space="preserve" textLength="168.0" lengthAdjust="spacingAndGlyphs">    88  Ron DuPlain </text>
+<text x="339.2" y="970" fill="#7d8590" xml:space="preserve" textLength="109.2" lengthAdjust="spacingAndGlyphs">(±1.8k lines)</text>
+<text x="20.0" y="989" fill="#e6edf3" xml:space="preserve" textLength="16.8" lengthAdjust="spacingAndGlyphs">  </text>
+<text x="36.8" y="989" fill="#66d9e8" xml:space="preserve" textLength="134.4" lengthAdjust="spacingAndGlyphs">█               </text>
+<text x="171.2" y="989" fill="#e6edf3" xml:space="preserve" textLength="134.4" lengthAdjust="spacingAndGlyphs">    62  Grey Li </text>
+<text x="305.6" y="989" fill="#7d8590" xml:space="preserve" textLength="109.2" lengthAdjust="spacingAndGlyphs">(±1.3k lines)</text>
+</svg>
