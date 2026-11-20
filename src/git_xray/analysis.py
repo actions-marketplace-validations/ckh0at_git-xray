@@ -23,16 +23,18 @@ DEFAULT_EXCLUDES = [
     "*.lock", "package-lock.json", "yarn.lock", "pnpm-lock.yaml", "poetry.lock",
     "Cargo.lock", "go.sum", "composer.lock", "Gemfile.lock", "uv.lock",
     "*.min.js", "*.min.css", "*.map", "*.svg", "*.snap",
+    "*.ai", "*.eps", "*.psd", "*.sketch", "*.pdf",  # design files are text-ish but not code
     "vendor/*", "node_modules/*", "dist/*", "build/*", "third_party/*",
     "CHANGELOG*", "CHANGES*", "HISTORY*", "NEWS*", "RELEASE_NOTES*",
 ]
 
 BOT_MARKERS = ("[bot]", "dependabot", "renovate", "github-actions", "pre-commit-ci")
+BOT_NAMES = {"copilot"}  # GitHub's coding agent commits as plain "Copilot"
 
 
 def is_bot(author: str) -> bool:
     a = author.lower()
-    return any(m in a for m in BOT_MARKERS)
+    return a in BOT_NAMES or any(m in a for m in BOT_MARKERS)
 
 COMMIT_MARK = "\x1e"
 FIELD_SEP = "\x1f"

@@ -378,3 +378,9 @@ def test_excludes_ignore_case():
     assert is_excluded("History.md", ["HISTORY*"])
     assert is_excluded("docs/Changelog.md", ["CHANGELOG*"])
     assert not is_excluded("src/history.py", ["CHANGELOG*"])
+
+
+def test_copilot_agent_counts_as_bot():
+    from git_xray.analysis import is_bot
+    assert is_bot("Copilot")
+    assert not is_bot("Copilotfan Jones")
