@@ -109,7 +109,7 @@ def parse_numstat_path(raw: str) -> tuple[str | None, str]:
 def read_log(repo: str, since: str | None = None, paths: list[str] | None = None,
              rev: str = "HEAD") -> list[Commit]:
     """Read history newest-first, normalising renamed paths to their latest name."""
-    fmt = f"{COMMIT_MARK}%H{FIELD_SEP}%aN{FIELD_SEP}%at"
+    fmt = f"{COMMIT_MARK}%H{FIELD_SEP}%aN{FIELD_SEP}%aE{FIELD_SEP}%at"
     args = ["-c", "core.quotepath=off", "log", rev, "--no-merges", "--numstat", "-M",
             f"--format={fmt}"]
     if since:
@@ -119,6 +119,7 @@ def read_log(repo: str, since: str | None = None, paths: list[str] | None = None
     out = run_git(args, repo)
 
     commits: list[Commit] = []
+    emails: list[str] = []
     renames: dict[str, str] = {}  # historical path -> current path
 
     def resolve(p: str) -> str:
@@ -134,7 +135,7 @@ def read_log(repo: str, since: str | None = None, paths: list[str] | None = None
             continue
         lines = block.split("\n")
         try:
-            sha, author, ts = lines[0].split(FIELD_SEP)
+            sha, author, email, ts = lines[0].split(FIELD_SEP)
         except ValueError:
             continue
         changes = []
@@ -152,7 +153,56 @@ def read_log(repo: str, since: str | None = None, paths: list[str] | None = None
             deleted = int(d) if d.isdigit() else 0
             changes.append((current, added, deleted))
         commits.append(Commit(sha, author, int(ts), changes))
+        emails.append(email)
+    merge_identities(commits, emails)
     return commits
+
+
+# Addresses shared by unrelated people; never merge identities on these.
+_GENERIC_EMAIL = re.compile(r"(^$|localhost|\(none\)|example\.(com|org)$|^noreply@github\.com$"
+                            r"|^root@|^nobody@|^unknown@)")
+
+
+def _name_key(name: str) -> str:
+    return re.sub(r"[\W_]+", "", name.casefold())
+
+
+def merge_identities(commits: list[Commit], emails: list[str]) -> None:
+    """Fold aliases of one person into a single name, in place.
+
+    `.mailmap` (honoured via %aN) is the authoritative fix, but most repos lack
+    one. Without it "TJ Holowaychuk", "Tj Holowaychuk" and "visionmedia" (same
+    address) count as three people, which wrecks bus factor and orphan reports.
+    Names are linked when they share a non-generic email, or are equal ignoring
+    case and punctuation; each group is shown under its most used name.
+    """
+    parent: dict[str, str] = {}
+
+    def find(x: str) -> str:
+        while parent.setdefault(x, x) != x:
+            parent[x] = parent[parent[x]]
+            x = parent[x]
+        return x
+
+    def union(a: str, b: str) -> None:
+        parent[find(a)] = find(b)
+
+    uses: Counter = Counter()
+    for c, email in zip(commits, emails):
+        uses[c.author] += 1
+        name_node = "n:" + c.author
+        key = _name_key(c.author)
+        if key:
+            union(name_node, "k:" + key)
+        e = email.strip().casefold()
+        if not _GENERIC_EMAIL.search(e):
+            union(name_node, "e:" + e)
+
+    best: dict[str, str] = {}
+    for name in sorted(uses, key=lambda n: (-uses[n], n)):  # most used wins; ties by name
+        best.setdefault(find("n:" + name), name)
+    for c in commits:
+        c.author = best[find("n:" + c.author)]
 
 
 def tracked_files(repo: str, rev: str = "HEAD") -> set[str]:
@@ -172,7 +222,10 @@ def count_loc(repo_root: str, path: str) -> int:
 
 
 def is_excluded(path: str, patterns: list[str]) -> bool:
+    # Case-insensitive: History.md, Changelog.md and CHANGELOG.md are all changelogs.
+    path = path.casefold()
     for pat in patterns:
+        pat = pat.casefold()
         if pat.endswith("/*"):
             d = pat[:-1]
             if path.startswith(d) or f"/{d}" in f"/{path}":
